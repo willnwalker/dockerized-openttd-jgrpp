@@ -1,17 +1,20 @@
 version: '3'
 services:
     openttd:
-        image: ghcr.io/ghostlydilemma/openttd-jgrpp:0.54.4
+        image: ghcr.io/ghostlydilemma/openttd-jgrpp:${JGRPP_VERSION}
         ports:
-            - "3979:3979/tcp"
-            - "3979:3979/udp"
+            - "${HOST_PORT}:${CONTAINER_PORT}/tcp"
+            - "${HOST_PORT}:${CONTAINER_PORT}/udp"
         volumes:
-            - ./config:/home/openttd/.local/share/openttd/
+            - "${CONFIG_PATH}:/home/openttd/.local/share/openttd/"
         restart: always
+        
         environment:
-            PUID: "1003"
-            PGID: "1004"
-            loadgame: last-autosave
+            PUID: ${PUID}
+            PGID: ${GUID}
+            loadgame: ${FLAG_LOAD_GAME}
+            # The following env variable is ignored if FLAG_LOAD_GAME is set to false or last-autosave
+            savename: ${GAMESAVE_FILENAME}
 
     console:
             image: golang
