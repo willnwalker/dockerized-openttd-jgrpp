@@ -19,3 +19,4 @@ services:
     console:
             image: golang
             command: sleep infinity
+            user: ${PUID}:${GUID}
