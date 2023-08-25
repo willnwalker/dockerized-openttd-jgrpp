@@ -18,5 +18,7 @@ EXPOSE 3979/tcp
 EXPOSE 3979/udp
 
 STOPSIGNAL 3
+# The following code section defines dumb-init as the entrypoint for the container, redirecting output to the next available container.
 ENTRYPOINT [ "/usr/bin/dumb-init", "--rewrite", "15:3", "--rewrite", "9:3", "--" ]
+# The server script running OpenTTD is then launched
 CMD [ "/openttd.sh" ]
