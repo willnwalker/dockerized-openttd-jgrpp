@@ -8,6 +8,8 @@ services:
         volumes:
             - "${CONFIG_PATH}:/home/openttd/.local/share/openttd/"
         restart: always
+        tty: true
+        stdin_open: true
         
         environment:
             PUID: ${PUID}
@@ -15,8 +17,11 @@ services:
             loadgame: ${FLAG_LOAD_GAME}
             # The following env variable is ignored if FLAG_LOAD_GAME is set to false or last-autosave
             savename: ${GAMESAVE_FILENAME}
+            debug: "verbose"
 
     console:
-            image: golang
-            command: sleep infinity
-            user: ${PUID}:${GUID}
+        image: golang
+        command: sleep infinity
+        user: ${PUID}:${GUID}
+        tty: true
+        stdin_open: true
