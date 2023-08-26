@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/bash
 
 savepath="/home/openttd/.local/share/openttd/save"
 savegame="${savepath}/${savename}"
