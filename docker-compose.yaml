@@ -2,6 +2,7 @@ version: '3'
 services:
     openttd:
         build: .
+        # When not testing: image: ghcr.io/ghostlydilemma/openttd-jgrpp:${JGRPP_VERSION}
         ports:
             - "${HOST_PORT}:${CONTAINER_PORT}/tcp"
             - "${HOST_PORT}:${CONTAINER_PORT}/udp"
