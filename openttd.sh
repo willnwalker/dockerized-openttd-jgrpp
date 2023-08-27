@@ -1,5 +1,6 @@
 #!/usr/bin/bash
-
+# Includes adaptations from https://github.com/newtork/docker-openttd/blob/master/openttd.wrapper.sh
+# Wraps OpenTTD process and proxies STDIN/STDOUT
 savepath="/home/openttd/.local/share/openttd/save"
 savegame="${savepath}/${savename}"
 LOADGAME_CHECK="${loadgame}x"
