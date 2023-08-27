@@ -7,9 +7,9 @@ services:
             - "${HOST_PORT}:${CONTAINER_PORT}/tcp"
             - "${HOST_PORT}:${CONTAINER_PORT}/udp"
         volumes:
+            # TOOD: Copy OTTD config files and GRFs instead of mounting whole game directory
             - "${CONFIG_PATH}:/home/openttd/.local/share/openttd/"
-        restart: no
-        
+        restart: unless-stopped
         environment:
             PUID: ${PUID}
             PGID: ${GUID}
