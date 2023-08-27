@@ -1,14 +1,17 @@
 version: '3'
 services:
     openttd:
-        build: .
-        # When not testing: image: ghcr.io/ghostlydilemma/openttd-jgrpp:${JGRPP_VERSION}
+        build:
+            # When not testing: image: ghcr.io/ghostlydilemma/openttd-jgrpp:${JGRPP_VERSION}
+            context: "."
+            platforms:
+                - "linux/amd64"
+                - "linux/arm64"
         ports:
             - "${HOST_PORT}:${CONTAINER_PORT}/tcp"
             - "${HOST_PORT}:${CONTAINER_PORT}/udp"
         volumes:
             - "${CONFIG_PATH}:/home/openttd/.local/share/openttd/"
-        restart: no
         
         environment:
             PUID: ${PUID}
@@ -16,7 +19,3 @@ services:
             loadgame: ${FLAG_LOAD_GAME}
             # The following env variable is ignored if FLAG_LOAD_GAME is set to false or last-autosave
             savename: ${GAMESAVE_FILENAME}
-
-    console:
-        image: golang
-        command: sleep infinity

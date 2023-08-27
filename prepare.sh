@@ -9,7 +9,10 @@ if [[ ! -e /etc/dpkg/dpkg.cfg.d/docker-apt-speedup ]]; then
 	echo force-unsafe-io > /etc/dpkg/dpkg.cfg.d/docker-apt-speedup
 fi
 
-echo "deb http://security.ubuntu.com/ubuntu jammy-security main" >> /etc/apt/sources.list
+# echo "deb http://security.ubuntu.com/ubuntu jammy-security main" >> /etc/apt/sources.list
+# If you are building for MacOS on an arm-based processor (Apple M-series chips), comment the above and uncomment the below
+# Adds Ubuntu Ports mirror (hosted by MIT) to provide jammy security updates for arm-based Ubuntu installs (our image)
+# echo "deb http://mirrors.mit.edu/ubuntu-ports jammy-security main" >> /etc/apt/sources.list
 
 ## Update pkg repos
 apt update -qq
