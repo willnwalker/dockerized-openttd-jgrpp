@@ -16,7 +16,3 @@ services:
             loadgame: ${FLAG_LOAD_GAME}
             # The following env variable is ignored if FLAG_LOAD_GAME is set to false or last-autosave
             savename: ${GAMESAVE_FILENAME}
-
-    console:
-        image: golang
-        command: sleep infinity
