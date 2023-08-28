@@ -1,5 +1,6 @@
-#!/bin/sh
-
+#!/usr/bin/bash
+# Includes adaptations from https://github.com/newtork/docker-openttd/blob/master/openttd.wrapper.sh
+# Wraps OpenTTD process and proxies STDIN/STDOUT
 savepath="/home/openttd/.local/share/openttd/save"
 savegame="${savepath}/${savename}"
 LOADGAME_CHECK="${loadgame}x"
@@ -36,6 +37,8 @@ User Home:   $(grep ${USER} /etc/passwd | cut -d':' -f6)
 -----------------------------------
 "
 
+source ./wrapper_defs
+
 # Loads the desired game, or prepare to load it next time server starts up!
 if [ ${LOADGAME_CHECK} != "x" ]; then
 
@@ -53,8 +56,8 @@ if [ ${LOADGAME_CHECK} != "x" ]; then
                 ;;
                 'false')
                         echo "Creating a new game."
-                        su -l openttd -c "/usr/share/games/openttd/openttd -D -x -d ${DEBUG}"
-                        exit 0
+                        # su -l openttd -c "/usr/share/games/openttd/openttd -D -x -d ${DEBUG}"
+                        su -l openttd -c launch_server_with_args 
                 ;;
                 'last-autosave')
 

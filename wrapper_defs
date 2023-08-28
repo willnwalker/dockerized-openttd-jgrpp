@@ -1,0 +1,48 @@
+# Adapted from https://github.com/newtork/docker-openttd/blob/master/openttd.wrapper.sh
+
+OTTD_BINARY_LOCATION=/usr/share/games/openttd/openttd
+
+
+launch_server_with_args {
+    mkfifo myfifa
+    cat > myfifa &
+    pid_cat=$!
+    setsid $OTTD_BINARY_LOCATION -D -x -d ${DEBUG} < myfifa &
+    pid_ottd=$!
+
+    # get server status, 0=running, 1=terminated
+    running() {
+        if ps -p $pid_ottd > /dev/null
+        then return 0
+        else return 1
+        fi
+    }
+
+    # trap function to execute commands after CTRL-C
+    savelyexit() {
+        if running ; then
+            echo "save $savegame" > myfifa
+            echo "quit" > myfifa
+        fi
+
+        kill $pid_cat &> /dev/null
+        rm -f myfifa
+        
+        # sleep for short period of time to let trap quit smoothly
+        sleep 1
+        exit 0
+    }
+    trap savelyexit SIGINT SIGTERM EXIT
+
+    # check whether server has started and is still running
+    if running
+    then
+        # read from stdin and redirect to fifo pipe while server is running
+        while read line && running
+        do echo "$line" > myfifa
+        done < /dev/stdin
+    fi
+
+    exit 0
+}
+
