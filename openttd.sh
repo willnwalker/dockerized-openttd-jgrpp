@@ -37,7 +37,7 @@ User Home:   $(grep ${USER} /etc/passwd | cut -d':' -f6)
 -----------------------------------
 "
 
-source wrapper_defs
+source ./wrapper_defs
 
 # Loads the desired game, or prepare to load it next time server starts up!
 if [ ${LOADGAME_CHECK} != "x" ]; then
@@ -57,7 +57,7 @@ if [ ${LOADGAME_CHECK} != "x" ]; then
                 'false')
                         echo "Creating a new game."
                         # su -l openttd -c "/usr/share/games/openttd/openttd -D -x -d ${DEBUG}"
-                        su -l $launch_server_with_args 
+                        su -l openttd -c launch_server_with_args 
                 ;;
                 'last-autosave')
 

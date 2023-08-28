@@ -1,13 +1,13 @@
 # Adapted from https://github.com/newtork/docker-openttd/blob/master/openttd.wrapper.sh
 
-OTTD_BINARY_LOCATION=openttd
+OTTD_BINARY_LOCATION=/usr/share/games/openttd/openttd
 
 
-launch_server_with_args () {
+launch_server_with_args {
     mkfifo myfifa
     cat > myfifa &
     pid_cat=$!
-    setsid openttd -c "/usr/share/games/openttd/openttd -D -x -d ${DEBUG}" < myfifa &
+    setsid $OTTD_BINARY_LOCATION -D -x -d ${DEBUG} < myfifa &
     pid_ottd=$!
 
     # get server status, 0=running, 1=terminated
