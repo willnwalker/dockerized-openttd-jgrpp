@@ -15,8 +15,10 @@ ADD buildconfig /tmp/buildconfig
 RUN dos2unix /tmp/buildconfig
 ADD --chown=1000:1000 openttd.sh /openttd.sh
 RUN dos2unix /openttd.sh
+ADD --chown=1000:1000 wrapper_defs /wrapper_defs
+RUN dos2unix /wrapper_defs
 
-RUN chmod +x /tmp/prepare.sh /tmp/cleanup.sh /openttd.sh
+RUN chmod +x /tmp/prepare.sh /tmp/cleanup.sh /openttd.sh /wrapper_defs
 
 VOLUME /home/openttd/.local/share/openttd/
 

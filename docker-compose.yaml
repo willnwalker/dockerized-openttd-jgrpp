@@ -9,7 +9,8 @@ services:
         volumes:
             # TOOD: Copy OTTD config files and GRFs instead of mounting whole game directory
             - "${CONFIG_PATH}:/home/openttd/.local/share/openttd/"
-        restart: unless-stopped
+        #restart: unless-stopped
+        restart: no
         environment:
             PUID: ${PUID}
             PGID: ${GUID}
